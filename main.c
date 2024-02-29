@@ -11,6 +11,13 @@ struct Barang {
     int jumlah_beli;
 };
 
+// fungsi untuk menukar dua elemen dalam array Barang
+void swap(struct Barang *a, struct Barang *b) {
+    struct Barang temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
 int main() {
     // deklarasi array untuk menyimpan data barang
     struct Barang daftar_barang[5]; // jumlah barang nya ada 5
@@ -84,10 +91,20 @@ int main() {
                 int total_setelah_diskon = subtotal - nilai_diskon;
                 total_harga_setelah_diskon += total_setelah_diskon;
             }
+            
+            
+            // mengurutkan berdasarkan jumlah pembelian terbanyak
+            for (int i = 0; i < 5 - 1; i++) {
+            for (int j = 0; j < 5 - i - 1; j++) {
+            if (daftar_barang[j].jumlah_beli < daftar_barang[j+1].jumlah_beli) {
+                swap(&daftar_barang[j], &daftar_barang[j+1]);
+                    }
+                }
+            }
 
             // tampilan rekapan pesanan barang
             printf("\nRekapan Pesanan Barang\n");
-            printf("No   Nama Barang   Harga   Jumlah   Diskon  Total Harga\n");
+            printf("Nama Barang   Harga   Jumlah   Diskon  Total Harga\n");
             printf("---------------------------------------------------------\n");
 
             for (int i = 0; i < 5; i++) {
@@ -101,7 +118,7 @@ int main() {
                     int subtotal = (int)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
                     int nilai_diskon = (subtotal * diskon) / 100;
                     int total_setelah_diskon = subtotal - nilai_diskon;
-                    printf("%-5d%-14s%-8d%-9d%-9d%-10d%\n", daftar_barang[i].nomor, daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, total_setelah_diskon);
+                    printf("%-14s%-8d%-9d%-9d%-10d%\n", daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, total_setelah_diskon);
                 }
             }
 
