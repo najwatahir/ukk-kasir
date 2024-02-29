@@ -1,6 +1,6 @@
 # UKK Kasir Minimarket
 
-### Program kasir Minimarket untuk Ujian Kompetensi Keahlian RPL
+### Program kasir Minimarket sederhana untuk Ujian Kompetensi Keahlian RPL
 
 Skenario yang harus terpenuhi:
 - Potongan diskon 10% untuk setiap pembelian barang dengan jenis yang sama lebih dari atau sama dengan 3
