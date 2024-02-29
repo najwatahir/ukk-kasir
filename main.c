@@ -41,7 +41,7 @@ int main() {
     daftar_barang[4].harga = 500;
     daftar_barang[4].jumlah_beli = 0;
 
-    long long total_harga_setelah_diskon = 0; // total harga setelah dipotong diskon
+    int total_harga_setelah_diskon = 0; // total harga setelah dipotong diskon
 
     int nomor_barang, jumlah_beli, pembayaran;
 
@@ -79,9 +79,9 @@ int main() {
                 } else if (daftar_barang[i].jumlah_beli >= 3) {
                     diskon = 10;
                 }
-                long long subtotal = (long long)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
-                long long nilai_diskon = (subtotal * diskon) / 100;
-                long long total_setelah_diskon = subtotal - nilai_diskon;
+                int subtotal = (long long)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
+                int nilai_diskon = (subtotal * diskon) / 100;
+                int total_setelah_diskon = subtotal - nilai_diskon;
                 total_harga_setelah_diskon += total_setelah_diskon;
             }
 
@@ -98,10 +98,10 @@ int main() {
                     } else if (daftar_barang[i].jumlah_beli >= 3) {
                         diskon = 10;
                     }
-                    long long subtotal = (long long)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
-                    long long nilai_diskon = (subtotal * diskon) / 100;
-                    long long total_setelah_diskon = subtotal - nilai_diskon;
-                    printf("%-5d%-14s%-8d%-9d%-9d%-10lld\n", daftar_barang[i].nomor, daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, total_setelah_diskon);
+                    int subtotal = (int)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
+                    int nilai_diskon = (subtotal * diskon) / 100;
+                    int total_setelah_diskon = subtotal - nilai_diskon;
+                    printf("%-5d%-14s%-8d%-9d%-9d%-10d%\n", daftar_barang[i].nomor, daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, total_setelah_diskon);
                 }
             }
 
@@ -146,7 +146,7 @@ int main() {
             }
         }
     } while (1); // proses looping tanpa henti
-    
+
     // MASUK KE BAGIAN STRUK TRANSAKSI
 
     system("cls"); // membersihkan terminal
@@ -169,10 +169,10 @@ int main() {
             } else if (daftar_barang[i].jumlah_beli >= 3) {
                 diskon = 10;
             }
-            long long subtotal = (long long)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
-            long long nilai_diskon = (subtotal * diskon) / 100;
-            long long total_setelah_diskon = subtotal - nilai_diskon;
-            printf("|%-14s%-8d%-9d%-9d%-10lld%-8lld     |\n", daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, nilai_diskon, total_setelah_diskon);
+            int subtotal = (int)daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
+            int nilai_diskon = (subtotal * diskon) / 100;
+            int total_setelah_diskon = subtotal - nilai_diskon;
+            printf("|%-14s%-8d%-9d%-9d%-10d%-8d%     |\n", daftar_barang[i].nama, daftar_barang[i].harga, daftar_barang[i].jumlah_beli, diskon, nilai_diskon, total_setelah_diskon);
 
         }
     }
