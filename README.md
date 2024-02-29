@@ -1,4 +1,4 @@
-# ukk-minimarket
+# UKK Kasir Minimarket
 
 ### Program kasir Minimarket untuk Ujian Kompetensi Keahlian RPL
 
