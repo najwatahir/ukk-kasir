@@ -95,7 +95,7 @@ int main() {
         scanf("%d", &nomor_barang);
 
         if (nomor_barang == 99) {
-            total = 0; // reset subtotal
+            total = 0; // reset total
             total_diskon = 0;
             total_setelah_diskon = 0;
             // mengecek barang mana yang dapat diskon
