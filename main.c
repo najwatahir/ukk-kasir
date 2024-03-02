@@ -65,6 +65,8 @@ int main() {
 
     int kembalian;
 
+    int no_barang = 1;
+
     FILE *file_struk = fopen("struk_transaksi.txt", "w");
     if (file_struk == NULL) {
         printf("Gagal membuka file untuk penulisan.\n");
@@ -93,7 +95,7 @@ int main() {
         scanf("%d", &nomor_barang);
 
         if (nomor_barang == 99) {
-            total = 0; // reset btotal
+            total = 0; // reset subtotal
             total_diskon = 0;
             total_setelah_diskon = 0;
             // mengecek barang mana yang dapat diskon
@@ -139,7 +141,8 @@ int main() {
            int total_harga = daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
            int diskon_barang = (total_harga* diskon) / 100;
 
-           printf("|%2d|%6d|%-5s|Rp.%-9d|Rp.%-9d|Rp.%-13d|\n", daftar_barang[i].nomor, daftar_barang[i].jumlah_beli, daftar_barang[i].nama, daftar_barang[i].harga, total_harga, diskon_barang);
+           printf("|%2d|%6d|%-5s|Rp.%-9d|Rp.%-9d|Rp.%-13d|\n", no_barang, daftar_barang[i].jumlah_beli, daftar_barang[i].nama, daftar_barang[i].harga, total_harga, diskon_barang);
+           no_barang++;
     }
 }
            printf("=========================================================\n");
@@ -161,7 +164,7 @@ int main() {
             int kembalian = pembayaran - total_setelah_diskon;
             printf("Kembalian    : Rp %d\n", kembalian);
 
-            
+
             // STRUK TRANSAKSI DI FILE .TXT
             fprintf(file_struk, "\n=================================================================\n");
             fprintf(file_struk, "|                        TOKO SKENSA                            |\n");
@@ -225,10 +228,10 @@ int main() {
             }
         }
     } while (1); // proses looping tanpa henti
-    
+
         // STRUK TRANSAKSI DI TERMINAL
         system("cls"); // membersihkan terminal
-        
+
             printf("\n=================================================================\n");
             printf("|                        TOKO SKENSA                            |\n");
             printf("|             Jl. HOS Cokroaminoto No. 84, Denpasar             |\n");
