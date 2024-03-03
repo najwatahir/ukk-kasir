@@ -26,46 +26,20 @@ int id_struk() {
 }
 
 int main() {
-    // deklarasi array untuk menyimpan data barang
-    struct Barang daftar_barang[5]; // jumlah barang nya ada 5
+    struct Barang barang[] = { // jumlah barang nya ada 5;
 
-    // inisialisasi data barang
-    daftar_barang[0].nomor = 1;
-    strcpy(daftar_barang[0].nama, "Buku Tulis");
-    daftar_barang[0].harga = 5000;
-    daftar_barang[0].jumlah_beli = 0; // inisialisasi jumlah pembelian ke 0
-
-    daftar_barang[1].nomor = 2;
-    strcpy(daftar_barang[1].nama, "Pensil");
-    daftar_barang[1].harga = 2000;
-    daftar_barang[1].jumlah_beli = 0;
-
-    daftar_barang[2].nomor = 3;
-    strcpy(daftar_barang[2].nama, "Penghapus");
-    daftar_barang[2].harga = 1000;
-    daftar_barang[2].jumlah_beli = 0;
-
-    daftar_barang[3].nomor = 4;
-    strcpy(daftar_barang[3].nama, "Penggaris");
-    daftar_barang[3].harga = 1000;
-    daftar_barang[3].jumlah_beli = 0;
-
-    daftar_barang[4].nomor = 5;
-    strcpy(daftar_barang[4].nama, "Bujur Sangkar");
-    daftar_barang[4].harga = 500;
-    daftar_barang[4].jumlah_beli = 0;
+    {1, "Buku Tulis", 5000, 0},
+    {2, "Pensil", 2000, 0},
+    {3, "Penghapus", 1000, 0},
+    {4, "Penggaris", 1000, 0},
+    {5, "Bujur Sangkar", 500, 0}
+    };
 
     int nomor_barang, jumlah_beli, pembayaran;
-
     int total_diskon = 0; // total potongan diskon
-
     int total = 0; // total harga sebelum diskon
-
     int total_setelah_diskon = 0; // total harga setelah dipotong diskon
-
     int kembalian;
-
-    int no_barang = 1;
 
     FILE *file_struk = fopen("struk_transaksi.txt", "w");
     if (file_struk == NULL) {
@@ -75,12 +49,11 @@ int main() {
 
     printf("Selamat datang di Toko Skensa\n");
     printf("Silahkan pilih barang yang anda inginkan\n");
-
     printf("===================================\n");
     printf("|No|     Barang       |  Harga    |\n");
     printf("----------------------------------\n");
     for (int i = 0; i < 5; i++) {
-        printf("|%d|   %-15s|   Rp.%-4d  |\n", daftar_barang[i].nomor, daftar_barang[i].nama, daftar_barang[i].harga);
+        printf("|%d|   %-15s|   Rp.%-4d  |\n", barang[i].nomor, barang[i].nama, barang[i].harga);
     }
     printf("===================================\n");
     printf("\n");
@@ -90,59 +63,56 @@ int main() {
     printf("\n===================================");
 
     do {
-        // input pilihan barang maupun opsi menu
-        printf("\nInput pilihan yang anda inginkan: ");
+        printf("\nInput pilihan yang anda inginkan: "); // input pilihan barang maupun opsi menu
         scanf("%d", &nomor_barang);
 
         if (nomor_barang == 99) {
-            total = 0; // reset subtotal
+            total = 0;
             total_diskon = 0;
             total_setelah_diskon = 0;
-            // mengecek barang mana yang dapat diskon
-            for (int i = 0; i < 5; i++) {
+
+            for (int i = 0; i < 5; i++) { // mengecek barang mana yang dapat diskon
                 int diskon = 0;
-                if (daftar_barang[i].jumlah_beli >= 5) {
+                if (barang[i].jumlah_beli >= 5) {
                     diskon = 15;
-                } else if (daftar_barang[i].jumlah_beli >= 3) {
+                } else if (barang[i].jumlah_beli >= 3) {
                     diskon = 10;
                 }
-                 int total_harga = daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
+                 int total_harga = barang[i].harga * barang[i].jumlah_beli;
                  int diskon_barang = (total_harga * diskon) / 100;
 
-                // menambahkan diskon barang ke total_diskon
                 total_diskon += diskon_barang;
                 total += total_harga;
                 total_setelah_diskon += total_harga - diskon_barang;
             }
 
-            // mengurutkan struk berdasarkan jumlah pembelian terbanyak
-            for (int i = 0; i < 5 - 1; i++) {
+            for (int i = 0; i < 5 - 1; i++) {    // mengurutkan struk berdasarkan jumlah pembelian terbanyak
                 for (int j = 0; j < 5 - i - 1; j++) {
-                    if (daftar_barang[j].jumlah_beli < daftar_barang[j+1].jumlah_beli) {
-                        swap(&daftar_barang[j], &daftar_barang[j+1]);
+                    if (barang[j].jumlah_beli < barang[j+1].jumlah_beli) {
+                        swap(&barang[j], &barang[j+1]);
                     }
                 }
             }
 
-            // tampilan rekapan pesanan barang
-           printf("\nRekapan Pesanan Barang\n");
+           printf("\nRekapan Pesanan Barang\n"); // tampilan rekapan
            printf("=========================================================\n");
            printf("|No|Jumlah| Nama Barang | Harga |  Total Harga | Diskon |\n");
            printf("=========================================================\n");
 
+           int no_rekapan = 1;
            for (int i = 0; i < 5; i++) {
-           if (daftar_barang[i].jumlah_beli > 0) {
+           if (barang[i].jumlah_beli > 0) {
            int diskon = 0;
-           if (daftar_barang[i].jumlah_beli >= 5) {
+           if (barang[i].jumlah_beli >= 5) {
             diskon = 15;
-           } else if (daftar_barang[i].jumlah_beli >= 3) {
+           } else if (barang[i].jumlah_beli >= 3) {
             diskon = 10;
            }
-           int total_harga = daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
+           int total_harga = barang[i].harga * barang[i].jumlah_beli;
            int diskon_barang = (total_harga* diskon) / 100;
 
-           printf("|%2d|%6d|%-5s|Rp.%-9d|Rp.%-9d|Rp.%-13d|\n", no_barang, daftar_barang[i].jumlah_beli, daftar_barang[i].nama, daftar_barang[i].harga, total_harga, diskon_barang);
-           no_barang++;
+           printf("|%2d|%6d|%-5s|Rp.%-9d|Rp.%-9d|Rp.%-13d|\n", no_rekapan, barang[i].jumlah_beli, barang[i].nama, barang[i].harga, total_harga, diskon_barang);
+           no_rekapan++;
     }
 }
            printf("=========================================================\n");
@@ -160,10 +130,8 @@ int main() {
                 }
             } while (pembayaran < total_setelah_diskon);
 
-            // hasil kembalian
-            int kembalian = pembayaran - total_setelah_diskon;
+            int kembalian = pembayaran - total_setelah_diskon; // hasil kembalian
             printf("Kembalian    : Rp %d\n", kembalian);
-
 
             // STRUK TRANSAKSI DI FILE .TXT
             fprintf(file_struk, "\n=================================================================\n");
@@ -177,19 +145,19 @@ int main() {
             fprintf(file_struk, "|---------------------------------------------------------------|\n");
 
             for (int i = 0; i < 5; i++) {
-            if (daftar_barang[i].jumlah_beli > 0) {
-            int diskon = 0;
-            if (daftar_barang[i].jumlah_beli >= 5) {
-            diskon = 15;
-            } else if (daftar_barang[i].jumlah_beli >= 3) {
-            diskon = 10; }
-            int subtotal_barang = daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
-            int nilai_diskon_barang = (subtotal_barang * diskon) / 100;
-            int total_setelah_diskon = subtotal_barang - nilai_diskon_barang;
-            fprintf(file_struk, "|%-dx%-14sRp.%-10dRp.%-10dRp.%-10d     |\n", daftar_barang[i].jumlah_beli, daftar_barang[i].nama, daftar_barang[i].harga, subtotal_barang, nilai_diskon_barang);
-    }
+                if (barang[i].jumlah_beli > 0) {
+                    int diskon = 0;
+                    if (barang[i].jumlah_beli >= 5) {
+                        diskon = 15;
+                    } else if (barang[i].jumlah_beli >= 3) {
+                        diskon = 10; }
+                    int subtotal_barang = barang[i].harga * barang[i].jumlah_beli;
+                    int nilai_diskon_barang = (subtotal_barang * diskon) / 100;
+                    int total_setelah_diskon = subtotal_barang - nilai_diskon_barang;
+                    fprintf(file_struk, "|%-dx%-14sRp.%-10dRp.%-10dRp.%-10d     |\n", barang[i].jumlah_beli, barang[i].nama, barang[i].harga, subtotal_barang, nilai_diskon_barang);
+                }
 
-}
+            }
 
             fprintf(file_struk, "|---------------------------------------------------------------|\n");
             fprintf(file_struk, "|Total Keseluruhan : Rp %lld                                   |\n", total);
@@ -198,27 +166,28 @@ int main() {
             fprintf(file_struk, "|Uang bayar        : Rp %d                                     |\n", pembayaran);
             kembalian = pembayaran - total_setelah_diskon;
             fprintf(file_struk, "|Kembalian         : Rp %d                                    |\n", kembalian);
-
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
-            fprintf(file_struk, "|Tanggal dan Waktu Pembayaran: %d-%02d-%02d %02d:%02d:%02d      |", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            char tanggal[50];
+            strftime(tanggal, sizeof(tanggal), "|Waktu/hari     : %a %b %d %H:%M:%S %Y     |", &tm);
+            fprintf(file_struk, "%s\n", tanggal);
             fprintf(file_struk, "\n=================================================================\n");
-            // menghentikan loop
-            break;
+
+            break; // menghentikan loop
         } else if (nomor_barang == 55) {
             // reset pilihan barang yang sudah dipilih
             for (int i = 0; i < 5; i++) {
-                daftar_barang[i].jumlah_beli = 0;
+                barang[i].jumlah_beli = 0;
             }
             printf("Pilihan Anda telah direset.\n");
         } else if (nomor_barang == 00) {
-        printf("Terima kasih selamat berbelanja kembali.\n");
-        return 0; // Keluar dari program
+            printf("Terima kasih telah menggunakan layanan kami.\n");
+            return 0; // Keluar dari program
         } else if (nomor_barang < 1 || nomor_barang > 5) {
             printf("Pilihan tidak valid!\n");
         } else {
             // masukkan jumlah barang yang akan dibeli
-            printf("\n[%d] pemesanan %s\n", daftar_barang[nomor_barang - 1].nomor, daftar_barang[nomor_barang - 1].nama);
+            printf("\n[%d] pemesanan %s\n", barang[nomor_barang - 1].nomor, barang[nomor_barang - 1].nama);
             printf("Masukkan jumlah barang yang akan dibeli: ");
             scanf("%d", &jumlah_beli);
             printf("===================================\n");
@@ -227,13 +196,13 @@ int main() {
             if (jumlah_beli <= 0) {
                 printf("Jumlah barang tidak valid!\n");
             } else {
-                daftar_barang[nomor_barang - 1].jumlah_beli += jumlah_beli;
+                barang[nomor_barang - 1].jumlah_beli += jumlah_beli;
             }
         }
     } while (1); // proses looping tanpa henti
 
-        // STRUK TRANSAKSI DI TERMINAL
-        system("cls"); // membersihkan terminal
+            // STRUK TRANSAKSI DI TERMINAL
+            system("cls"); // membersihkan terminal
 
             printf("\n=================================================================\n");
             printf("|                        TOKO SKENSA                            |\n");
@@ -246,19 +215,18 @@ int main() {
             printf("|---------------------------------------------------------------|\n");
 
             for (int i = 0; i < 5; i++) {
-            if (daftar_barang[i].jumlah_beli > 0) {
-            int diskon = 0;
-            if (daftar_barang[i].jumlah_beli >= 5) {
-            diskon = 15;
-            } else if (daftar_barang[i].jumlah_beli >= 3) {
-            diskon = 10;
+                if (barang[i].jumlah_beli > 0) {
+                int diskon = 0;
+                    if (barang[i].jumlah_beli >= 5) {
+                        diskon = 15;
+                    } else if (barang[i].jumlah_beli >= 3) {
+                        diskon = 10; }
+                int subtotal_barang = barang[i].harga * barang[i].jumlah_beli;
+                int nilai_diskon_barang = (subtotal_barang * diskon) / 100;
+                int total_setelah_diskon = subtotal_barang - nilai_diskon_barang;
+                printf("|%-dx%-14sRp.%-10dRp.%-10dRp.%-10d     |\n", barang[i].jumlah_beli, barang[i].nama, barang[i].harga, subtotal_barang, nilai_diskon_barang);
             }
-            int subtotal_barang = daftar_barang[i].harga * daftar_barang[i].jumlah_beli;
-            int nilai_diskon_barang = (subtotal_barang * diskon) / 100;
-            int total_setelah_diskon = subtotal_barang - nilai_diskon_barang;
-            printf("|%-dx%-14sRp.%-10dRp.%-10dRp.%-10d     |\n", daftar_barang[i].jumlah_beli, daftar_barang[i].nama, daftar_barang[i].harga, subtotal_barang, nilai_diskon_barang);
-    }
-}
+        }
 
             printf("|---------------------------------------------------------------|\n");
             printf("|Total Keseluruhan : Rp %lld                                   |\n", total);
@@ -270,10 +238,11 @@ int main() {
 
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
-            printf("|Tanggal dan Waktu Pembayaran: %d-%02d-%02d %02d:%02d:%02d      |", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+            char tanggal[50];
+            strftime(tanggal, sizeof(tanggal), "|Waktu/hari   : %a %b %d %H:%M:%S %Y     |", &tm);
+            printf("%s\n", tanggal);
             printf("\n=================================================================\n");
 
-    // tutup file struk
     fclose(file_struk);
 
     return 0;
