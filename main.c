@@ -95,7 +95,7 @@ int main() {
         scanf("%d", &nomor_barang);
 
         if (nomor_barang == 99) {
-            total = 0; // reset total
+            total = 0; // reset subtotal
             total_diskon = 0;
             total_setelah_diskon = 0;
             // mengecek barang mana yang dapat diskon
@@ -211,6 +211,9 @@ int main() {
                 daftar_barang[i].jumlah_beli = 0;
             }
             printf("Pilihan Anda telah direset.\n");
+        } else if (nomor_barang == 00) {
+        printf("Terima kasih selamat berbelanja kembali.\n");
+        return 0; // Keluar dari program
         } else if (nomor_barang < 1 || nomor_barang > 5) {
             printf("Pilihan tidak valid!\n");
         } else {
