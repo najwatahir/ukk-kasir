@@ -111,7 +111,7 @@ int main() {
                     int total_harga = barang[i].harga * barang[i].jumlah_beli;
                     int diskon_barang = (total_harga * diskon) / 100;
 
-                    printf("|%-2d|%-8d|%15s|Rp.%-8d|Rp.%-10d|Rp.%-7d|\n", no_rekapan, barang[i].jumlah_beli, barang[i].nama, barang[i].harga, total_harga, diskon_barang);
+                    printf("|%-2d|%-8d|%-15s|Rp.%-8d|Rp.%-10d|Rp.%-7d|\n", no_rekapan, barang[i].jumlah_beli, barang[i].nama, barang[i].harga, total_harga, diskon_barang);
                     no_rekapan++;
                 }
             }
