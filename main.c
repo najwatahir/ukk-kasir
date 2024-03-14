@@ -140,7 +140,7 @@ int main() {
             printf("Kembalian   : %d\n\n", kembalian);
 
             printf("Klik Enter untuk mencetak struk.\n");
-            getchar();
+            getchar(); // untuk memasukkan key apa saja dari keyboard
             while (getchar() != '\n');
 
             // STRUK TXT
