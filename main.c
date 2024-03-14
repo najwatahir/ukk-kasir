@@ -18,7 +18,7 @@ void swap(struct Barang *a, struct Barang *b) {
 
 int id_struk() {
     srand(time(NULL));
-    int id = rand() % 9000 + 1000;
+    int id = rand() % 9000000000 + 1000000000;
     return id;
 }
 
@@ -35,10 +35,18 @@ int main() {
     int total = 0;
     int total_diskon = 0;
     int total_setelah_diskon = 0;
+    
+    time_t rawtime;
+    struct tm *timeinfo;
+    char filename[50];
 
-    FILE *struk = fopen("struk.txt", "w");
+    time(&rawtime);
+    timeinfo = localtime(&rawtime);
+    strftime(filename, sizeof(filename), "struk_%Y%m%d_%H%M%S.txt", timeinfo);
+
+     FILE *struk = fopen(filename, "w");
     if (struk == NULL) {
-        printf("Gagal membuat struk.\n");
+        printf("Gagal membuat file struk.\n");
         return 1;
     }
 
@@ -57,7 +65,7 @@ int main() {
     printf("55. Reset Pilihan\n");
     printf("00. Keluar\n");
     printf("\n");
-    printf("====================================================\n");
+    printf("====================================================\n\n");
 
     do {
         int no_barang, jumlah_beli; // deklarasi variabel nya disini
@@ -120,9 +128,10 @@ int main() {
             printf("Total Harga  : %d\n", total);
             printf("Total Diskon : %d\n", total_diskon);
             printf("Total Bayar  : %d\n", total_setelah_diskon);
+            printf("======================================================================\n\n");
 
             do {
-                printf("Masukkan jumlah uang yang dibayarkan: ");
+                printf("Masukkan uang bayar: ");
                 scanf("%d", &pembayaran);
                 if (pembayaran < total_setelah_diskon) {
                     printf("Uang yang dibayarkan kurang. Silahkan masukkan uang yang cukup.\n");
@@ -130,7 +139,11 @@ int main() {
             } while (pembayaran < total_setelah_diskon);
 
             kembalian = pembayaran - total_setelah_diskon;
-            printf("Kembalian   : %d\n", kembalian);
+            printf("Kembalian   : %d\n\n", kembalian);
+
+            printf("Klik Enter untuk mencetak struk.\n");
+            getchar();
+            while (getchar() != '\n');
 
             // STRUK TXT
             fprintf(struk, "==========================================================\n");
@@ -138,7 +151,7 @@ int main() {
             fprintf(struk, "|          Jl. HOS Cokroaminoto No. 84 Denpasar          |\n");
             fprintf(struk, "|                       Bali                             |\n");
             fprintf(struk, "|                Telp: 0819348394                        |\n");
-            fprintf(struk, "|ID Struk: %d                                          |\n", id_struk());
+            fprintf(struk, "|ID Struk: %d                                    |\n", id_struk());
             fprintf(struk, "==========================================================\n");
             fprintf(struk, "|    Nama Barang    |   Harga   |   Total   |   Diskon   |\n");
             fprintf(struk, "==========================================================\n");
@@ -158,7 +171,7 @@ int main() {
             }
 
             fprintf(struk, "==========================================================\n");
-            fprintf(struk, "|Total Harga  : %-41d|\n", total);
+            fprintf(struk, "|Total Harga  : %-41d,-|\n", total);
             fprintf(struk, "|Total Diskon : %-41d|\n", total_diskon);
             fprintf(struk, "|Tagihan      : %-41d|\n", total_setelah_diskon);
             fprintf(struk, "|Pembayaran   : %-41d|\n", pembayaran);
@@ -186,10 +199,10 @@ int main() {
         } else if (no_barang < 1 || no_barang > 5) {
             printf("Pilihan tidak valid!\n");
         } else {
-            printf("[%d] pemesanan %s\n", barang[no_barang - 1].nomor, barang[no_barang - 1].nama);
-            printf("Masukkan jumlah barang yang akan dibeli: ");
+            printf("[%d] Jumlah %s dipesan: ", barang[no_barang - 1].nomor, barang[no_barang - 1].nama);
             scanf("%d", &jumlah_beli);
-            printf("===========================================\n");
+            printf("\n");
+            printf("===========================================\n\n");
 
             if (jumlah_beli <= 0) {
                 printf("Jumlah barang tidak valid!\n");
@@ -201,47 +214,9 @@ int main() {
 
     system("cls");
 
-    // struk terminal
-    printf("==========================================================\n");
-    printf("|                    TOKO SKENSA                         |\n");
-    printf("|          Jl. HOS Cokroaminoto No. 84 Denpasar          |\n");
-    printf("|                       Bali                             |\n");
-    printf("|                Telp: 0819348394                        |\n");
-    printf("|ID Struk: %d                                          |\n", id_struk());
-    printf("==========================================================\n");
-    printf("|    Nama Barang    |   Harga   |   Total   |   Diskon   |\n");
-    printf("==========================================================\n");
-    for (int i = 0; i < 5; i++) {
-        if (barang[i].jumlah_beli > 0) {
-            int diskon = 0;
-            if (barang[i].jumlah_beli >= 5) {
-                diskon = 15;
-            } else if (barang[i].jumlah_beli >= 3) {
-                diskon = 10;
-            }
-            int total_barang = barang[i].harga * barang[i].jumlah_beli;
-            int diskon_barang = (total_barang * diskon) / 100;
-            int total_setelah_diskon = total_barang - diskon_barang;
-            printf("|%-2dx %-15s|Rp.%-8d|Rp.%-8d|Rp.%-9d|\n", barang[i].jumlah_beli, barang[i].nama, barang[i].harga, total_barang, diskon_barang);
-        }
-    }
-
-    printf("==========================================================\n");
-    printf("|Total Harga  : %-41d|\n", total);
-    printf("|Total Diskon : %-41d|\n", total_diskon);
-    printf("|Tagihan      : %-41d|\n", total_setelah_diskon);
-    printf("|Pembayaran   : %-41d|\n", pembayaran);
-    kembalian = pembayaran - total_setelah_diskon;
-    printf("|Kembalian    : %-41d|\n", kembalian);
-    printf("|                                                        |\n");
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
-    char tanggal[50];
-    strftime(tanggal, sizeof(tanggal), "|Waktu/hari   : %a %b %d %H:%M:%S %Y  \t \t |\n", &tm);
-    printf("%s", tanggal);
-    printf("==========================================================");
-
-    fclose(struk); //tambahin di struk terminal nya juga
+    printf("Mencetak struk ...\n\n");
+    printf("Struk sudah dicetak.\n\n");
+    printf("Terima kasih telah berbelanja di Toko SKENSA.");
 
     return 0;
 }
