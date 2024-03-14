@@ -10,15 +10,17 @@ struct Barang {
     int jumlah_beli;
 };
 
+// fungsi untuk buble sort (menukar array pada rekapan)
 void swap(struct Barang *a, struct Barang *b) {
     struct Barang temp = *a;
     *a = *b;
     *b = temp;
 }
 
+// fungsi untuk generate angka random di ID struk
 int id_struk() {
-    srand(time(NULL));
-    int id = rand() % 9000000000 + 1000000000;
+    srand(time(NULL)); // membuat ID berbeda setiap detik
+    int id = rand() % 9000000000 + 1000000000; // range angka ID
     return id;
 }
 
@@ -37,9 +39,8 @@ int main() {
     int total_setelah_diskon = 0;
 
     int struk_id = id_struk();
-
     char namafile[50];
-    sprintf(namafile, "struk %d.txt", struk_id);
+    sprintf(namafile, "struk %d.txt", struk_id); // menggunakan ID hasil random generate untuk nama file struk agar unique
 
     FILE *struk = fopen(namafile, "w");
     if (struk == NULL) {
@@ -65,7 +66,7 @@ int main() {
     printf("====================================================\n\n");
 
     do {
-        int no_barang, jumlah_beli; // deklarasi variabel nya disini
+        int no_barang, jumlah_beli;
         printf("Input pilihan yang anda inginkan: ");
         scanf("%d", &no_barang);
 
@@ -177,11 +178,11 @@ int main() {
             time_t t = time(NULL);
             struct tm tm = *localtime(&t);
             char tanggal[50];
-            strftime(tanggal, sizeof(tanggal), "|Waktu/hari   : %a %b %d %H:%M:%S %Y \t \t |\n", &tm);
+            strftime(tanggal, sizeof(tanggal), "|Waktu/hari   : %a %b %d %H:%M:%S %Y \t \t |\n", &tm); // a = day, b = month, d = date, Y = year
             fprintf(struk, "%s", tanggal);
             fprintf(struk, "==========================================================\n");
 
-            fclose(struk); //tambahin close di struk txt
+            fclose(struk);
 
             break;
 
