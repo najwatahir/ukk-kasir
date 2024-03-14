@@ -35,18 +35,15 @@ int main() {
     int total = 0;
     int total_diskon = 0;
     int total_setelah_diskon = 0;
-    
-    time_t rawtime;
-    struct tm *timeinfo;
-    char filename[50];
 
-    time(&rawtime);
-    timeinfo = localtime(&rawtime);
-    strftime(filename, sizeof(filename), "struk_%Y%m%d_%H%M%S.txt", timeinfo);
+    int struk_id = id_struk();
 
-     FILE *struk = fopen(filename, "w");
+    char namafile[50];
+    sprintf(namafile, "struk %d.txt", struk_id);
+
+    FILE *struk = fopen(namafile, "w");
     if (struk == NULL) {
-        printf("Gagal membuat file struk.\n");
+        printf("Gagal membuat struk.\n");
         return 1;
     }
 
