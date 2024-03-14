@@ -169,7 +169,7 @@ int main() {
             }
 
             fprintf(struk, "==========================================================\n");
-            fprintf(struk, "|Total Harga  : %-41d,-|\n", total);
+            fprintf(struk, "|Total Harga  : %-41d|\n", total);
             fprintf(struk, "|Total Diskon : %-41d|\n", total_diskon);
             fprintf(struk, "|Tagihan      : %-41d|\n", total_setelah_diskon);
             fprintf(struk, "|Pembayaran   : %-41d|\n", pembayaran);
@@ -210,7 +210,7 @@ int main() {
         }
     } while (1);
 
-    system("cls");
+    system("cls"); // membersihkan terminal (hanya untuk di OS Windows)
 
     printf("Mencetak struk ...\n\n");
     printf("Struk sudah dicetak.\n\n");
