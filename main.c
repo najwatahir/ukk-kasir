@@ -149,7 +149,7 @@ int main() {
             fprintf(struk, "|          Jl. HOS Cokroaminoto No. 84 Denpasar          |\n");
             fprintf(struk, "|                       Bali                             |\n");
             fprintf(struk, "|                Telp: 0819348394                        |\n");
-            fprintf(struk, "|ID Struk: %d                                    |\n", id_struk());
+            fprintf(struk, "|ID Struk: %d                                    |\n", struk_id);
             fprintf(struk, "==========================================================\n");
             fprintf(struk, "|    Nama Barang    |   Harga   |   Total   |   Diskon   |\n");
             fprintf(struk, "==========================================================\n");
