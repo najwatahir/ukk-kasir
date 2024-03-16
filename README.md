@@ -1,3 +1,3 @@
 # UKK Kasir
 
-### Aplikasi kasir sederhana untuk Ujian Sertifikasi Kompetensi Pemrograman Junior (Junior Coder) konsentrasi keahlian Rekayasa Perangkat Lunak
+### Aplikasi kasir sederhana untuk Ujian Sertifikasi Pemrogram Junior (Junior Coder) konsentrasi keahlian Rekayasa Perangkat Lunak
