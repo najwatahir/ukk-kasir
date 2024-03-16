@@ -10,7 +10,7 @@ struct Barang {
     int jumlah_beli;
 };
 
-// fungsi untuk buble sort (menukar array pada rekapan)
+// fungsi untuk bubble sort (menukar array pada rekapan)
 void swap(struct Barang *a, struct Barang *b) {
     struct Barang temp = *a;
     *a = *b;
