@@ -48,6 +48,7 @@ int main() {
         return 1;
     }
 
+    start:
     printf("Selamat datang di Toko SKENSA\n");
     printf("Silakan pilih barang yang anda inginkan\n");
     printf("\n");
@@ -190,7 +191,8 @@ int main() {
             for (int i = 0; i < 5; i++) {
                 barang[i].jumlah_beli = 0;
             }
-            printf("Pilihan anda telah direset.\n");
+            system("cls");
+            goto start;
         } else if (no_barang == 00) {
             printf("Terima kasih. Selamat berbelanja kembali di Toko SKENSA.\n");
             return 0;
