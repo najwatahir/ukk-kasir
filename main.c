@@ -67,11 +67,11 @@ int main() {
     printf("====================================================\n\n");
 
     do {
-        int no_barang, jumlah_beli;
+        int pilihan, jumlah_beli;
         printf("Input pilihan yang anda inginkan: ");
-        scanf("%d", &no_barang);
+        scanf("%d", &pilihan);
 
-        if (no_barang == 99) {
+        if (pilihan == 99) {
             total = 0;
             total_diskon = 0;
             total_setelah_diskon = 0;
@@ -140,10 +140,6 @@ int main() {
             kembalian = pembayaran - total_setelah_diskon;
             printf("Kembalian   : %d\n\n", kembalian);
 
-            printf("Klik Enter untuk mencetak struk.\n");
-            getchar(); // untuk memasukkan key apa saja dari keyboard
-            while (getchar() != '\n');
-
             // STRUK TXT
             fprintf(struk, "==========================================================\n");
             fprintf(struk, "|                    TOKO SKENSA                         |\n");
@@ -187,19 +183,19 @@ int main() {
 
             break;
 
-        } else if (no_barang == 55) {
+        } else if (pilihan == 55) {
             for (int i = 0; i < 5; i++) {
                 barang[i].jumlah_beli = 0;
             }
             system("cls");
             goto start;
-        } else if (no_barang == 00) {
+        } else if (pilihan == 00) {
             printf("Terima kasih. Selamat berbelanja kembali di Toko SKENSA.\n");
             return 0;
-        } else if (no_barang < 1 || no_barang > 5) {
+        } else if (pilihan < 1 || pilihan > 5) {
             printf("Pilihan tidak valid!\n");
         } else {
-            printf("[%d] Jumlah %s dipesan: ", barang[no_barang - 1].nomor, barang[no_barang - 1].nama);
+            printf("[%d] Jumlah %s dipesan: ", barang[pilihan - 1].nomor, barang[pilihan - 1].nama);
             scanf("%d", &jumlah_beli);
             printf("\n");
             printf("===========================================\n\n");
@@ -207,15 +203,13 @@ int main() {
             if (jumlah_beli <= 0) {
                 printf("Jumlah barang tidak valid!\n");
             } else {
-                barang[no_barang - 1].jumlah_beli += jumlah_beli;
+                barang[pilihan - 1].jumlah_beli += jumlah_beli;
             }
         }
     } while (1);
 
     system("cls"); // membersihkan terminal (hanya untuk di OS Windows)
 
-    printf("Mencetak struk ...\n\n");
-    printf("Struk sudah dicetak.\n\n");
     printf("Terima kasih telah berbelanja di Toko SKENSA.");
 
     return 0;
