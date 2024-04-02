@@ -91,7 +91,7 @@ int main() {
                 total_setelah_diskon += total_harga - diskon_barang;
             }
 
-            for (int i = 0; i < 4; i++) { // swap nya < 4
+            for (int i = 0; i < 4; i++) {
                 for (int j = 0; j < 4 - i; j++) {
                     if (barang[j].jumlah_beli < barang[j + 1].jumlah_beli) {
                         swap(&barang[j], &barang[j + 1]);
